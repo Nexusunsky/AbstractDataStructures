@@ -1,5 +1,7 @@
+package main;
+
 /**
- * Coin
+ * main.Coin
  *
  * @author: haoliu on 04/08/2018 21:44
  */

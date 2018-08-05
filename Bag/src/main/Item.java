@@ -1,3 +1,5 @@
+package main;
+
 public class Item {
     private String name;
     private int price;
@@ -13,7 +15,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
+        return "main.Item{" +
                 "name='" + name + '\'' +
                 ", price=" + price +
                 '}';

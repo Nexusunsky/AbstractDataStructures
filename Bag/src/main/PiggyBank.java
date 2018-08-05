@@ -1,3 +1,5 @@
+package main;
+
 /**
  * 存钱罐
  * A class that implements a piggy bank by using a bag

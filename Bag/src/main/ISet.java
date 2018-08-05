@@ -1,3 +1,5 @@
+package main;
+
 /**
  * An Interface that describe the operation of a set of objects.
  *
