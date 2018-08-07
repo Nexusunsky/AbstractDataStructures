@@ -28,6 +28,7 @@ public class ProjectTwo {
          * Put a book into the top of the Book pile.
          *
          * @param book The book put on.
+         * @return True if success, False otherwise.
          */
         boolean put(String book);
 

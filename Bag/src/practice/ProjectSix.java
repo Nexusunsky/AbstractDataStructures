@@ -8,4 +8,38 @@ package practice;
  * @author: haoliu on 06/08/2018 23:01
  */
 public class ProjectSix {
+    abstract class BaseMatrix<T> {
+        /**
+         * 内部维护的矩形数组
+         */
+        protected T[][] matrix;
+
+        /**
+         * 相加两个矩阵，并得到第三个矩阵
+         *
+         * @param other 另一个矩阵
+         * @return BaseMatrix
+         */
+        abstract BaseMatrix add(BaseMatrix other);
+
+        /**
+         * 相乘两个矩阵，并得到第三个矩阵
+         *
+         * @param other 另一个矩阵
+         * @return BaseMatrix
+         */
+        abstract BaseMatrix multiply(BaseMatrix other);
+
+        /**
+         * 矩阵乘以一个标量得到一个新的标量
+         *
+         * @param scalar 标量
+         */
+        abstract void multiply(int scalar);
+
+        /**
+         * 矩阵装置
+         */
+        abstract void transposed();
+    }
 }

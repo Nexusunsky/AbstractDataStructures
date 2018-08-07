@@ -9,4 +9,42 @@ package practice;
  * @author: haoliu on 06/08/2018 23:01
  */
 public class ProjectFive {
+    interface TenderSet {
+        /**
+         * 根据 投标的价格和性能来查询投标
+         *
+         * @param price       Price of tender
+         * @param performance performance of tender
+         * @return Tender return the result of find tender from TenderSet.
+         */
+        Tender find(String price, String performance);
+    }
+
+    class Tender {
+        private String companyName;
+        private String deviceDescribe;
+        private String performance;
+        private String price;
+        private String cost;
+
+        public String getCompanyName() {
+            return companyName;
+        }
+
+        public String getDeviceDescribe() {
+            return deviceDescribe;
+        }
+
+        public String getPerformance() {
+            return performance;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        public String getCost() {
+            return cost;
+        }
+    }
 }
