@@ -52,7 +52,7 @@ public final class ArrayBag<T> implements IBag<T> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return entryNumber == 0;
     }
 
     @Override
@@ -70,14 +70,33 @@ public final class ArrayBag<T> implements IBag<T> {
 
     }
 
+    /**
+     * 比较对象时必须使用equals而不是使用==
+     */
     @Override
     public int getFrequencyOf(final T anEntry) {
-        return 0;
+        checkInitialization();
+        int counter = 0;
+        //固定次数的循环
+        for (int i = 0; i < entryNumber; i++) {
+            if (anEntry.equals(arrayBag[i]))
+                counter++;
+        }
+        return counter;
     }
 
     @Override
     public boolean contains(final T anEntry) {
-        return false;
+        checkInitialization();
+        boolean found = false;
+        int index = 0;
+        //可变次数的循环
+        while (!found && (index < entryNumber)) {
+            if (anEntry.equals(arrayBag[index]))
+                found = true;
+            index++;
+        }
+        return found;
     }
 
     private boolean isArrayFull() {
