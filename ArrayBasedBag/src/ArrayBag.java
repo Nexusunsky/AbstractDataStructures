@@ -94,15 +94,21 @@ public final class ArrayBag<T> implements IBag<T> {
     @Override
     public boolean contains(final T anEntry) {
         checkInitialization();
-        boolean found = false;
+        return getIndexOf(anEntry) == -1;
+    }
+
+    private int getIndexOf(T anEntry) {
+        int where = -1;
+        boolean looking = true;
         int index = 0;
-        //可变次数的循环
-        while (!found && (index < entryNumber)) {
-            if (anEntry.equals(arrayBag[index]))
-                found = true;
+        while (looking && (index < entryNumber)) {
+            if (anEntry.equals(arrayBag[index])) {
+                looking = false;
+                where = index;
+            }
             index++;
         }
-        return found;
+        return where;
     }
 
     /**
