@@ -23,6 +23,17 @@ public final class ArrayBag<T> implements IBag<T> {
         }
     }
 
+    public ArrayBag(T[] origin) {
+        int size = origin.length;
+        if (size <= MAX_CAPACITY) {
+            this.arrayBag = Arrays.copyOf(origin, size);
+            this.entryNumber = 0;
+            this.initialized = true;
+        } else {
+            throw new IllegalStateException("Attempt to create a big object.");
+        }
+    }
+
     public ArrayBag() {
         this(DEFAULT_CAPACITY);
     }
