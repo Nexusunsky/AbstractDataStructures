@@ -41,7 +41,7 @@ public interface IBag<T> {
      * @param anEntry the entry to be removed
      * @return Either the removed entry, if the removal was successful, or null.
      */
-    T remove(T anEntry);
+    boolean remove(T anEntry);
 
 
     /**

@@ -57,17 +57,23 @@ public final class ArrayBag<T> implements IBag<T> {
 
     @Override
     public T remove() {
-        return null;
+        checkInitialization();
+        return removeAtIndex(entryNumber - 1);
     }
 
     @Override
-    public T remove(final T anEntry) {
-        return null;
+    public boolean remove(final T anEntry) {
+        checkInitialization();
+        T result = removeAtIndex(entryNumber - 1);
+        return anEntry.equals(result);
     }
+
 
     @Override
     public void clear() {
-
+        while (!isEmpty()) {
+            remove();
+        }
     }
 
     /**
@@ -97,6 +103,23 @@ public final class ArrayBag<T> implements IBag<T> {
             index++;
         }
         return found;
+    }
+
+    /**
+     * 前置条件：包不能为空，index为有效值
+     * 删除的策略为将最后一项移动到指定index处，并将最后一项置空
+     */
+    private T removeAtIndex(int index) {
+        T result = null;
+        if (!isEmpty() && index >= 0) {
+
+            result = arrayBag[index];
+            arrayBag[index] = arrayBag[entryNumber - 1];
+            arrayBag[entryNumber - 1] = null;
+            entryNumber--;
+        }
+
+        return result;
     }
 
     private boolean isArrayFull() {
