@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Array based Bag.
  *
@@ -7,7 +9,7 @@ public final class ArrayBag<T> implements IBag<T> {
     private static final int DEFAULT_CAPACITY = 25;
     private static final int MAX_CAPACITY = 100000;
     private boolean initialized = false;
-    private final T[] arrayBag;
+    private T[] arrayBag;
     private int entryNumber;
 
     public ArrayBag(int capacity) {
@@ -24,6 +26,16 @@ public final class ArrayBag<T> implements IBag<T> {
     public ArrayBag() {
         this(DEFAULT_CAPACITY);
     }
+
+    //    @Override
+    //    public void add(final T newEntry) {
+    //        checkInitialization();
+    //        if (isArrayFull()) {
+    //            doubleCapacity();
+    //        }
+    //        arrayBag[entryNumber] = newEntry;
+    //        entryNumber++;
+    //    }
 
     @Override
     public boolean add(final T newEntry) {
@@ -109,6 +121,18 @@ public final class ArrayBag<T> implements IBag<T> {
             index++;
         }
         return where;
+    }
+
+    private void doubleCapacity() {
+        int newLength = 2 * arrayBag.length;
+        checkCapacity(newLength);
+        arrayBag = Arrays.copyOf(arrayBag, newLength);
+    }
+
+    private void checkCapacity(final int capacity) {
+        if (capacity > MAX_CAPACITY) {
+            throw new IllegalStateException("Attempt to create a big whose capacity exeeds allowed maximum of " + MAX_CAPACITY);
+        }
     }
 
     /**
