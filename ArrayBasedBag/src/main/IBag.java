@@ -75,5 +75,14 @@ public interface IBag<T> {
      * Note: If the bag is empty, the returned array is empty.
      */
     T[] toArray();
+
+    /**
+     * replace entry in the specified index, then return the entry replaced.
+     *
+     * @param index       index which should be replaced.
+     * @param replacement Replacement.
+     * @return T entry replaced.
+     */
+    T replace(int index, T replacement);
 }
 

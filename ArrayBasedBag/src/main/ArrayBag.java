@@ -16,10 +16,7 @@ public final class ArrayBag<T> implements IBag<T> {
 
     public ArrayBag(int capacity) {
         if (capacity <= MAX_CAPACITY) {
-            @SuppressWarnings("unchecked") final T[] temp = (T[]) new Object[capacity];
-            this.arrayBag = temp;
-            this.entryNumber = 0;
-            this.initialized = true;
+            initBag(capacity);
         } else {
             throw new IllegalStateException("Attempt to create a big object.");
         }
@@ -71,6 +68,17 @@ public final class ArrayBag<T> implements IBag<T> {
     }
 
     @Override
+    public T replace(final int index, final T replacement) {
+        checkInitialization();
+        if (index > arrayBag.length || index < 0)
+            throw new IllegalStateException("Index is invalid.");
+        if (index > entryNumber)
+            return null;
+
+        return arrayBag[index];
+    }
+
+    @Override
     public int getCurrentSize() {
         return entryNumber;
     }
@@ -93,13 +101,18 @@ public final class ArrayBag<T> implements IBag<T> {
         return anEntry.equals(result);
     }
 
-
     @Override
     public void clear() {
-        while (!isEmpty()) {
-            remove();
-        }
+        checkInitialization();
+        initBag(arrayBag.length);
     }
+
+    //    @Override
+    //    public void clear() {
+    //        while (!isEmpty()) {
+    //            remove();
+    //        }
+    //    }
 
     /**
      * 比较对象时必须使用equals而不是使用==
@@ -173,5 +186,12 @@ public final class ArrayBag<T> implements IBag<T> {
         if (!initialized) {
             throw new SecurityException("main.ArrayBag object is not initialized properly.");
         }
+    }
+
+    private void initBag(final int capacity) {
+        @SuppressWarnings("unchecked") final T[] temp = (T[]) new Object[capacity];
+        this.arrayBag = temp;
+        this.entryNumber = 0;
+        this.initialized = true;
     }
 }
