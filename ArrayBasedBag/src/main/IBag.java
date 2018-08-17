@@ -84,5 +84,13 @@ public interface IBag<T> {
      * @return T entry replaced.
      */
     T replace(int index, T replacement);
+
+    /**
+     * remove every entry in the bag.
+     *
+     * @param entry target entry should be removed.
+     * @return boolean True if removeEvery success, otherwise false.
+     */
+    boolean removeEvery(T entry);
 }
 

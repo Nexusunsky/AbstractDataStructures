@@ -79,6 +79,24 @@ public final class ArrayBag<T> implements IBag<T> {
     }
 
     @Override
+    public boolean removeEvery(final T entry) {
+        checkInitialization();
+        if (getIndexOf(entry) == -1)
+            return false;
+
+        T[] temp = Arrays.copyOf(arrayBag, arrayBag.length);
+        for (int i = 0; i < entryNumber; i++) {
+            if (entry.equals(arrayBag[i])) {
+                temp[i] = temp[entryNumber - 1];
+                temp[entryNumber - 1] = null;
+                entryNumber--;
+            }
+        }
+        arrayBag = temp;
+        return true;
+    }
+
+    @Override
     public int getCurrentSize() {
         return entryNumber;
     }
@@ -132,7 +150,7 @@ public final class ArrayBag<T> implements IBag<T> {
     @Override
     public boolean contains(final T anEntry) {
         checkInitialization();
-        return getIndexOf(anEntry) == -1;
+        return getIndexOf(anEntry) > -1;
     }
 
     private int getIndexOf(T anEntry) {
@@ -168,7 +186,6 @@ public final class ArrayBag<T> implements IBag<T> {
     private T removeAtIndex(int index) {
         T result = null;
         if (!isEmpty() && index >= 0) {
-
             result = arrayBag[index];
             arrayBag[index] = arrayBag[entryNumber - 1];
             arrayBag[entryNumber - 1] = null;
