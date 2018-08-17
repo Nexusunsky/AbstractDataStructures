@@ -1,7 +1,9 @@
+package main;
+
 /**
  * ArrayBag的测试
  * A Test of the constructors and the methods add and toArray ,
- * as defined in the first draft of the class ArrayBag.
+ * as defined in the first draft of the class main.ArrayBag.
  *
  * @author: haoliu on 14/08/2018 22:36
  */

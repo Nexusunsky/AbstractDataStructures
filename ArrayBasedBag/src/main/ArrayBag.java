@@ -1,3 +1,5 @@
+package main;
+
 import java.util.Arrays;
 
 /**
@@ -169,7 +171,7 @@ public final class ArrayBag<T> implements IBag<T> {
 
     private void checkInitialization() {
         if (!initialized) {
-            throw new SecurityException("ArrayBag object is not initialized properly.");
+            throw new SecurityException("main.ArrayBag object is not initialized properly.");
         }
     }
 }
