@@ -3,18 +3,18 @@ package main;
 import java.util.Arrays;
 
 /**
- * Array based Bag.
+ * Array based and resizable Bag.
  *
  * @author: haoliu on 08/08/2018 22:33
  */
-public final class ArrayBag<T extends Comparable> implements IBag<T> {
+public final class ResizableArrayBag<T extends Comparable> implements IBag<T> {
     private static final int DEFAULT_CAPACITY = 25;
     private static final int MAX_CAPACITY = 100000;
     private boolean initialized = false;
     private T[] arrayBag;
     private int entryNumber;
 
-    public ArrayBag(int capacity) {
+    public ResizableArrayBag(int capacity) {
         if (capacity <= MAX_CAPACITY) {
             initBag(capacity);
         } else {
@@ -22,7 +22,7 @@ public final class ArrayBag<T extends Comparable> implements IBag<T> {
         }
     }
 
-    public ArrayBag(T[] origin) {
+    public ResizableArrayBag(T[] origin) {
         int size = origin.length;
         if (size <= MAX_CAPACITY) {
             this.arrayBag = Arrays.copyOf(origin, size);
@@ -33,21 +33,19 @@ public final class ArrayBag<T extends Comparable> implements IBag<T> {
         }
     }
 
-    public ArrayBag() {
+    public ResizableArrayBag() {
         this(DEFAULT_CAPACITY);
     }
 
     @Override
     public boolean add(final T newEntry) {
         checkInitialization();
-        boolean result = true;
         if (isArrayFull()) {
-            result = false;
-        } else {
-            arrayBag[entryNumber] = newEntry;
-            entryNumber++;
+            doubleCapacity();
         }
-        return result;
+        arrayBag[entryNumber] = newEntry;
+        entryNumber++;
+        return true;
     }
 
     @Override
@@ -115,13 +113,6 @@ public final class ArrayBag<T extends Comparable> implements IBag<T> {
         initBag(arrayBag.length);
     }
 
-    //    @Override
-    //    public void clear() {
-    //        while (!isEmpty()) {
-    //            remove();
-    //        }
-    //    }
-
     /**
      * 比较对象时必须使用equals而不是使用==
      */
@@ -183,7 +174,7 @@ public final class ArrayBag<T extends Comparable> implements IBag<T> {
                 temp[index] = entry;
             index++;
         }
-        return new ArrayBag<>(temp);
+        return new ResizableArrayBag<>(temp);
     }
 
     /**

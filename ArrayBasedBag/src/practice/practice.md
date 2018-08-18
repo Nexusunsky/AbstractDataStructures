@@ -54,3 +54,16 @@ public IBag<T> getAllLessThan(Comparable<T> anObject);
 注意，两个相等的包应含有相同个数的项，每个项出现在每个包中个数应该相等，每个数组中的项的次数是无关的。
 答：
 
+13，类ResizableArrayBag有一个数组，当向包中添加对象时其大小增大。
+修改这个类，使得当从包中删除对象时，它的数组还可以缩小。
+完成这个任务需要添加两个新的私有方法，如下：
+    第一个新方法检查是否应该减少数组的大小：
+        private boolean isTooBig();
+
+    第二个新方法创建一个新数组，其大小是当前数组大小的3/4，且数组的大小大于20。
+        private void reduceArray();
+实现这两个方法，然后使用它们来定义两个remove方法
+
+
+
+
