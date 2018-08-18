@@ -7,7 +7,7 @@ import java.util.Arrays;
  *
  * @author: haoliu on 08/08/2018 22:33
  */
-public final class ArrayBag<T> implements IBag<T> {
+public final class ArrayBag<T extends Comparable> implements IBag<T> {
     private static final int DEFAULT_CAPACITY = 25;
     private static final int MAX_CAPACITY = 100000;
     private boolean initialized = false;
@@ -151,6 +151,64 @@ public final class ArrayBag<T> implements IBag<T> {
     public boolean contains(final T anEntry) {
         checkInitialization();
         return getIndexOf(anEntry) > -1;
+    }
+
+    public T getMin() {
+        checkInitialization();
+        T result = arrayBag[0];
+        for (final T entry : arrayBag) {
+            if (result.compareTo(entry) > 0)
+                result = entry;
+        }
+        return result;
+    }
+
+    public T getMax() {
+        checkInitialization();
+        T result = arrayBag[0];
+        for (final T entry : arrayBag) {
+            if (result.compareTo(entry) < 0)
+                result = entry;
+        }
+        return result;
+    }
+
+    public T removeMin() {
+        T min = getMin();
+        remove(min);
+        return min;
+    }
+
+    public T removeMax() {
+        T max = getMax();
+        remove(max);
+        return max;
+    }
+
+    public IBag<T> getAllLessThan(Comparable<T> anObject) {
+        @SuppressWarnings("unchecked") final T[] temp = (T[]) new Object[entryNumber];
+        int index = 0;
+        for (final T entry : arrayBag) {
+            if (anObject.compareTo(entry) > 0)
+                temp[index] = entry;
+            index++;
+        }
+        return new ArrayBag<>(temp);
+    }
+
+    /**
+     * 两个相等的包应含有相同个数的项，每个项出现在每个包中个数应该相等，每个数组中的项的次序是无关的。
+     */
+    public boolean equals(final IBag<T> others) {
+        if (others.getCurrentSize() != entryNumber)
+            return false;
+
+        for (final T entry : arrayBag) {
+            if (getFrequencyOf(entry) != others.getFrequencyOf(entry))
+                return false;
+        }
+
+        return true;
     }
 
     private int getIndexOf(T anEntry) {

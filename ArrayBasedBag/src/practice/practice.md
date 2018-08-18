@@ -12,3 +12,45 @@
 
 5，为类ArrayBag定义方法removeEvery，从包中删除给定项的所有出现。
     答：public boolean removeEvery(T entry);
+
+6，类ArrayBag的实例有固定大小，而ResizableArrayBag的实例则没有。
+给出一些例子，如果包的大小是
+    a，固定的
+    b，可变的，
+则包是合适的。
+    答：
+
+7，假定想定义类PileOfBooks来实现前一章项目2中描述的接口。包是表示一堆书的合理接口吗？
+    答：包的不是表示堆stack的接口，stack的特点是有序的先进后出（FILO），但是包是无序的。
+
+8，现有ResizableArrayBag的实例myBag，假定myBag的初试容量是10。
+    a，向myBag中添加了145项后
+    b，向myBag中添加20项后
+数组bag的长度是？
+    答：
+    a，myBag的长度增长为10,20,40,80,160。那么在添加145项后的长度不大于160。
+    b，向myBag添加20项后，maBag的长度会倍增为40。
+
+9，
+
+10，假定包中含有Comparable对象，例如字符串。一个Comparable对象属于实现了标准接口
+Comparable<T>的一个类，所以有方法compareTo。为类ArrayBag实现下列方法：
+    a，返回包中最小对象的方法getMin
+    b，返回包中最大对象的方法getMax
+    c，删除并返回包中最小对象的方法removeMin
+    d，删除并返回包中最大对象的方法removeMax
+    答：
+    public T getMin();
+    public T getMax();
+    public T removeMin();
+    public T removeMax();
+
+11，假定包中含有Comparable对象，如前一个练习中所描述的那样。
+为类ArrayBag定义一个方法，返回由小于某个给定项的项组成的新包。
+public IBag<T> getAllLessThan(Comparable<T> anObject);
+确保你的方法不会影响到原始包的状态。
+
+12，为类ArrayBag定义equals方法，当两个包的内容相同是返回真。
+注意，两个相等的包应含有相同个数的项，每个项出现在每个包中个数应该相等，每个数组中的项的次数是无关的。
+答：
+
