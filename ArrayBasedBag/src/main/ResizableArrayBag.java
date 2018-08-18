@@ -97,12 +97,18 @@ public final class ResizableArrayBag<T extends Comparable> implements IBag<T> {
     @Override
     public T remove() {
         checkInitialization();
+        if (isTooBig())
+            reduceArray();
+
         return removeAtIndex(entryNumber - 1);
     }
 
     @Override
     public boolean remove(final T anEntry) {
         checkInitialization();
+        if (isTooBig())
+            reduceArray();
+
         T result = removeAtIndex(entryNumber - 1);
         return anEntry.equals(result);
     }
@@ -249,5 +255,23 @@ public final class ResizableArrayBag<T extends Comparable> implements IBag<T> {
         this.arrayBag = temp;
         this.entryNumber = 0;
         this.initialized = true;
+    }
+
+    /**
+     * 创建一个新数组，其大小是当前数组大小的3/4，且数组的大小大于20。
+     */
+    private void reduceArray() {
+        int capacity = arrayBag.length * 3 / 4;
+        if (capacity < 20)
+            capacity = 20;
+        arrayBag = Arrays.copyOf(arrayBag, capacity);
+    }
+
+    /**
+     * 如果包中的项数小于数组大小的一半且数组的大小大于20，这个方法返回真。
+     */
+    private boolean isTooBig() {
+        int size = arrayBag.length;
+        return size > 20 && entryNumber < size / 2;
     }
 }
