@@ -104,8 +104,9 @@ public final class ResizableArraySet<T> implements ISet<T> {
     }
 
     private boolean isTooBig() {
-        //元素个数大于 20 并且为数组大小的 3/4
-        return entrySize > 20 && entrySize > array.length * 3 / 4;
+        //数组大小大于 20 并且为数组大小的 3/4
+        int size = array.length;
+        return size > 20 && entrySize > size * 3 / 4;
     }
 
     private T removeAtIndex(final int index) {
