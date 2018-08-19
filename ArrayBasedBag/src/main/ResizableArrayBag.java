@@ -109,7 +109,8 @@ public final class ResizableArrayBag<T extends Comparable> implements IBag<T> {
         if (isTooBig())
             reduceArray();
 
-        T result = removeAtIndex(entryNumber - 1);
+        int index = getIndexOf(anEntry);
+        T result = removeAtIndex(index);
         return anEntry.equals(result);
     }
 
