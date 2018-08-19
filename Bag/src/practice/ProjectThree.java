@@ -47,5 +47,12 @@ public class ProjectThree {
          * @return int Index which the ring is pointed at.
          */
         int advance();
+
+        /**
+         * 返回Ring当前所指的项
+         *
+         * @return T 返回当前项
+         */
+        T getCurrent();
     }
 }
