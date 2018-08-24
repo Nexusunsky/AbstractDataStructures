@@ -14,6 +14,15 @@ public class LinkedBag<T> implements IBag<T> {
         this.entryNumber = 0;
     }
 
+    /* P3.1 */
+    public LinkedBag(final T[] origin) {
+        this();
+        for (T item : origin) {
+            firstNode.data = item;
+            firstNode.next = firstNode;
+        }
+    }
+
     @Override
     public int getCurrentSize() {
         return entryNumber;
@@ -124,12 +133,19 @@ public class LinkedBag<T> implements IBag<T> {
         int index = 0;
         Node currentNode = firstNode;
 
-        while (currentNode != null) {
+        while (index < entryNumber && currentNode != null) {
             result[index] = currentNode.data;
             currentNode = currentNode.next;
             index++;
         }
         return result;
+    }
+
+    @Override
+    public T replace(final T replacement) {
+        T origin = firstNode.data;
+        firstNode.data = replacement;
+        return origin;
     }
 
     private class Node {

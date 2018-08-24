@@ -75,6 +75,14 @@ public interface IBag<T> {
     T[] toArray();
 
     /**
+     * Replace the Replacement from bag.
+     *
+     * @param replacement Replacement.
+     * @return T entry replaced.
+     */
+    T replace(T replacement);
+
+    /**
      * remove every entry in the bag.
      *
      * @param entry target entry should be removed.
