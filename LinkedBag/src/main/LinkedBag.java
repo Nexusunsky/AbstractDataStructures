@@ -161,4 +161,20 @@ public class LinkedBag<T> implements IBag<T> {
             this.next = next;
         }
     }
+
+    private class DoublyNode {
+        private T data;
+        private Node prev;
+        private Node next;
+
+        public DoublyNode(final T data) {
+            this(data, null, null);
+        }
+
+        private DoublyNode(final T data, final Node prev, final Node next) {
+            this.data = data;
+            this.prev = prev;
+            this.next = next;
+        }
+    }
 }
