@@ -6,8 +6,43 @@ package main;
  * @author: haoliu on 2018/9/3 20:31
  */
 public class StackForEvaluate {
-
     public static void main(String[] args) {
+        evaluationTest1();
+        evaluationTest2();
+        convertTest1();
+        convertTest2();
+        expression();
+    }
+
+    private static void evaluationTest2() {
+        System.out.println(evaluateInfix("a+b*c-(c+d)"));
+        System.out.println(evaluateInfix("(a+e)/(b-d)"));
+        System.out.println(evaluateInfix("a+(b+c*d)-e/b"));
+        System.out.println(evaluateInfix("e-b*c^a+d"));
+    }
+
+    private static void evaluationTest1() {
+        System.out.println(evaluatePostfix("ae+bd-/"));
+        System.out.println(evaluatePostfix("abc*d*-"));
+        System.out.println(evaluatePostfix("abc-/d*"));
+        System.out.println(evaluatePostfix("ebca^*+d-"));
+    }
+
+    private static void convertTest2() {
+        System.out.println(convertToPostfix("(a+b)/(c-d)"));
+        System.out.println(convertToPostfix("a/(b-c)*d"));
+        System.out.println(convertToPostfix("a-(b/(c-d)*e+f)^g"));
+        System.out.println(convertToPostfix("(a-b*c)/(d*e^f*g+h)"));
+    }
+
+    private static void convertTest1() {
+        System.out.println(convertToPostfix("a+b*c"));
+        System.out.println(convertToPostfix("a*b/(c-d)"));
+        System.out.println(convertToPostfix("a/b+(c-d)"));
+        System.out.println(convertToPostfix("a/b+c-d"));
+    }
+
+    private static void expression() {
         int a = 2, b = 3, c = 4, d = 5, e = 6;
         int result = (e - b * c * c * c) + d;
         System.out.println("Result :" + result);
@@ -57,30 +92,7 @@ public class StackForEvaluate {
                     while (!operatorStack.isEmpty()
                             && notInBasket(operatorStack.peek())
                             && isStackPriority(nextChar, operatorStack.peek())) {
-                        Integer p2 = valueStack.pop();
-                        Integer p1 = valueStack.pop();
-                        int result = 0;
-                        Character topChar = operatorStack.pop();
-                        switch (topChar) {
-                            case '+':
-                                result = p1 + p2;
-                                break;
-                            case '-':
-                                result = p1 - p2;
-                                break;
-                            case '*':
-                                result = p1 * p2;
-                                break;
-                            case '/':
-                                result = p1 / p2;
-                                break;
-                            case '^':
-                                result = p1;
-                                for (int i = 0; i < p2; i++) {
-                                    result = result * p1;
-                                }
-                                break;
-                        }
+                        int result = evaluate(valueStack, operatorStack);
                         valueStack.push(result);
                     }
                     operatorStack.push(nextChar);
@@ -94,26 +106,7 @@ public class StackForEvaluate {
                         Integer p2 = valueStack.pop();
                         Integer p1 = valueStack.pop();
                         int result = 0;
-                        switch (topChar) {
-                            case '+':
-                                result = p1 + p2;
-                                break;
-                            case '-':
-                                result = p1 - p2;
-                                break;
-                            case '*':
-                                result = p1 * p2;
-                                break;
-                            case '/':
-                                result = p1 / p2;
-                                break;
-                            case '^':
-                                result = p1;
-                                for (int i = 0; i < p2; i++) {
-                                    result = result * p1;
-                                }
-                                break;
-                        }
+                        result = switchCase(topChar, p2, p1, result);
                         valueStack.push(result);
                         topChar = operatorStack.pop();
                     }
@@ -124,33 +117,42 @@ public class StackForEvaluate {
         }
 
         while (!operatorStack.isEmpty()) {
-            Integer p2 = valueStack.pop();
-            Integer p1 = valueStack.pop();
-            int result = 0;
-            Character topChar = operatorStack.pop();
-            switch (topChar) {
-                case '+':
-                    result = p1 + p2;
-                    break;
-                case '-':
-                    result = p1 - p2;
-                    break;
-                case '*':
-                    result = p1 * p2;
-                    break;
-                case '/':
-                    result = p1 / p2;
-                    break;
-                case '^':
-                    result = p1;
-                    for (int i = 0; i < p2; i++) {
-                        result = result * p1;
-                    }
-                    break;
-            }
+            int result = evaluate(valueStack, operatorStack);
             valueStack.push(result);
         }
         return valueStack.peek();
+    }
+
+    private static int switchCase(final Character topChar, final Integer p2, final Integer p1, int result) {
+        switch (topChar) {
+            case '+':
+                result = p1 + p2;
+                break;
+            case '-':
+                result = p1 - p2;
+                break;
+            case '*':
+                result = p1 * p2;
+                break;
+            case '/':
+                result = p1 / p2;
+                break;
+            case '^':
+                result = 1;
+                for (int i = 0; i < p2; i++) {
+                    result = result * p1;
+                }
+                break;
+        }
+        return result;
+    }
+
+    private static int evaluate(final IStack<Integer> valueStack, final IStack<Character> operatorStack) {
+        Integer p2 = valueStack.pop();
+        Integer p1 = valueStack.pop();
+        int result = 0;
+        Character topChar = operatorStack.pop();
+        return switchCase(topChar, p2, p1, result);
     }
 
     public static int evaluatePostfix(String postfix) {
@@ -209,11 +211,11 @@ public class StackForEvaluate {
                 case '^': {
                     Integer param1 = valueStack.pop();
                     Integer param2 = valueStack.pop();
-                    int result = param2;
+                    int result = 1;
                     for (int i = 0; i < param1; i++) {
                         result = result * param2;
                     }
-                    valueStack.push(param1);
+                    valueStack.push(result);
                     break;
                 }
 
