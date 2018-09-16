@@ -6,7 +6,7 @@ package main;
 public class CheckBalance {
 
     public static boolean checkBalance(String expression) {
-        IStack<Character> openDelimiterStack = new OurStack<>();
+        IStack<Character> openDelimiterStack = new ArrayStack<>();
         int characterCount = expression.length();
         boolean isBalanced = true;
         int index = 0;

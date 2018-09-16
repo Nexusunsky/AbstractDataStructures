@@ -58,8 +58,8 @@ public class StackForEvaluate {
     public static int evaluateInfix(String infix) {
         int infixLength = infix.length();
         int index = 0;
-        IStack<Integer> valueStack = new OurStack<>();
-        IStack<Character> operatorStack = new OurStack<>();
+        IStack<Integer> valueStack = new ArrayStack<>();
+        IStack<Character> operatorStack = new ArrayStack<>();
 
         while (index < infixLength) {
             char nextChar = infix.charAt(index);
@@ -158,7 +158,7 @@ public class StackForEvaluate {
     public static int evaluatePostfix(String postfix) {
         final int postfixLength = postfix.length();
         int index = 0;
-        IStack<Integer> valueStack = new OurStack<>();
+        IStack<Integer> valueStack = new ArrayStack<>();
 
         while (index < postfixLength) {
             char nextChar = postfix.charAt(index);
@@ -229,8 +229,8 @@ public class StackForEvaluate {
     public static String convertToPostfix(String infix) {
         int infixLength = infix.length();
         int index = 0;
-        IStack<Character> operatorStack = new OurStack<>();
-        IStack<Character> postfixStack = new OurStack<>();
+        IStack<Character> operatorStack = new ArrayStack<>();
+        IStack<Character> postfixStack = new ArrayStack<>();
 
         while (index < infixLength) {
             char nextCharacter = infix.charAt(index);
