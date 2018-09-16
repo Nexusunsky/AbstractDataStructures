@@ -62,6 +62,31 @@ public class ArrayStack<T> implements IStack<T> {
         initArray(stack.length);
     }
 
+    @Override
+    public void display() {
+        checkInitialization();
+        if (isEmpty())
+            throw new RuntimeException("Stack is empty.");
+        for (int i = topIndex; i > 0; i--) {
+            System.out.println(stack[i] + "\n");
+        }
+    }
+
+    @Override
+    public T[] toArray() {
+        int length = stack.length;
+        @SuppressWarnings("unchecked") T[] result = (T[]) new Object[length];
+        for (int i = length - 1, j = 0; i > 0; i--, j++) {
+            result[j] = stack[i];
+        }
+        return result;
+    }
+
+    @Override
+    public void remove(final int n) {
+
+    }
+
     private void initArray(final int length) {
         @SuppressWarnings("unchecked") T[] tempStack = (T[]) new Object[length];
         stack = tempStack;

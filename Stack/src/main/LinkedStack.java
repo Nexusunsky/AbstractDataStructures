@@ -43,6 +43,41 @@ public class LinkedStack<T> implements IStack<T> {
         }
     }
 
+    @Override
+    public void display() {
+        if (isEmpty())
+            throw new RuntimeException("Stack is empty.");
+        Node temp = topNode;
+        while (temp != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
+
+    @Override
+    public T[] toArray() {
+        Node temp = topNode;
+        int length = 0;
+        while (temp != null) {
+            length++;
+            temp = temp.next;
+        }
+
+        @SuppressWarnings("unchecked") T[] result = (T[]) new Object[length];
+        temp = topNode;
+        int i = 0;
+        while (temp != null) {
+            result[i] = temp.data;
+            temp = temp.next;
+        }
+        return result;
+    }
+
+    @Override
+    public void remove(final int n) {
+
+    }
+
     private class Node {
         private T data; //Element in stack
         private Node next; // current's next node

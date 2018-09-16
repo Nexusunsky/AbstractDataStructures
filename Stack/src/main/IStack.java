@@ -14,4 +14,15 @@ public interface IStack<T> {
     boolean isEmpty();
 
     void clear();
+
+    void display();
+
+    T[] toArray();
+
+    /**
+     * Remove top n elements.
+     *
+     * @param n: int, which indicates the top n element should be removed.
+     */
+    void remove(int n);
 }
