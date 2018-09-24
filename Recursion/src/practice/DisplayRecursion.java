@@ -6,10 +6,11 @@ package practice;
  *
  * @author: haoliu on 2018/9/19 07:14
  */
-public class DisplayArray {
+public class DisplayRecursion {
     public static void main(String[] args) {
         int[] temp = {1, 2, 3, 4, 5, 6, 7};
         displayArray(temp, 0, temp.length - 1);
+        displayRowOfCharacters('*', 5);
     }
 
     private static void displayArray(int arr[], int first, int last) {
@@ -20,6 +21,13 @@ public class DisplayArray {
             displayArray(arr, first, mid - 1);//递归地显示左半部分
             System.out.println(arr[mid] + " ");//显示中间部分
             displayArray(arr, mid + 1, last);//递归地显示右半部分
+        }
+    }
+
+    private static void displayRowOfCharacters(char ch, int times) {
+        if (times > 0) {
+            System.out.print(ch);
+            displayRowOfCharacters(ch, times - 1);
         }
     }
 }
